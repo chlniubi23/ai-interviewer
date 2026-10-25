@@ -28,3 +28,7 @@ docs/demo.mp4
 # ===== 系统 =====
 Thumbs.db
 .DS_Store
+
+# ===== 素材录制临时产物（不入库）=====
+temp_video/
+frontend/record*.mjs

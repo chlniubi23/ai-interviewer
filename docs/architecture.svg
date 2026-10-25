@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="470" viewBox="0 0 960 470" font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="960" height="470" fill="#ffffff"/>
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1f2328">AI 面试教练 · 数据流架构</text>
+
+  <!-- 输入层 -->
+  <rect x="30" y="55" width="270" height="64" rx="10" fill="#f0f3f8" stroke="#b6c4f5"/>
+  <text x="165" y="80" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1a3fb0">输入</text>
+  <text x="165" y="99" text-anchor="middle" font-size="11.5" fill="#57606a">简历 PDF（pypdf 全文注入）</text>
+  <text x="165" y="113" text-anchor="middle" font-size="11.5" fill="#57606a">JD 文本粘贴 / 截图 OCR（多模态）</text>
+
+  <rect x="660" y="55" width="270" height="64" rx="10" fill="#f0f3f8" stroke="#b6c4f5"/>
+  <text x="795" y="80" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1a3fb0">知识库（自进化）</text>
+  <text x="795" y="99" text-anchor="middle" font-size="11.5" fill="#57606a">25 方向调研资产 + 运行时画像生成</text>
+  <text x="795" y="113" text-anchor="middle" font-size="11.5" fill="#57606a">JD 持续学习（LLM 增量判断 · 蒸馏防膨胀）</text>
+
+  <!-- 引擎层 -->
+  <rect x="150" y="160" width="660" height="78" rx="10" fill="#eef2ff" stroke="#1a3fb0" stroke-width="1.5"/>
+  <text x="480" y="184" text-anchor="middle" font-size="14" font-weight="700" fill="#1a3fb0">面试引擎（FastAPI · GLM）</text>
+  <text x="480" y="205" text-anchor="middle" font-size="11.5" fill="#333a45">时长驱动状态机（25/40 分钟档 · 弹性话题 · 追问引用原句 · 反问收尾）</text>
+  <text x="480" y="222" text-anchor="middle" font-size="11.5" fill="#333a45">SSE 流式逐字输出 · 三轮战役（HR→技术→总监）· 薄弱项专项</text>
+  <line x1="165" y1="119" x2="240" y2="158" stroke="#57606a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="795" y1="119" x2="720" y2="158" stroke="#57606a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 语音层 -->
+  <rect x="150" y="278" width="660" height="52" rx="10" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="480" y="298" text-anchor="middle" font-size="12.5" font-weight="600" fill="#333a45">语音链路（零 API 成本）</text>
+  <text x="480" y="316" text-anchor="middle" font-size="11.5" fill="#57606a">edge-tts 分句即译播报 ⇄ Web Speech 听写（互斥防自听）· 语速/填充词/句完整度实时统计</text>
+  <line x1="480" y1="238" x2="480" y2="276" stroke="#57606a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 输出层 -->
+  <rect x="30" y="370" width="440" height="72" rx="10" fill="#eef8f0" stroke="#4ac26b"/>
+  <text x="250" y="394" text-anchor="middle" font-size="13" font-weight="700" fill="#116329">统一报告（评分校准）</text>
+  <text x="250" y="413" text-anchor="middle" font-size="11.5" fill="#333a45">五维 rubric 锚定雷达 · 总分确定性加权 · 三栏答案对比 · 评分依据自证</text>
+  <text x="250" y="430" text-anchor="middle" font-size="11.5" fill="#57606a">一致性实验：同对话 5 连评 五维极差 ≤1 分</text>
+
+  <rect x="490" y="370" width="440" height="72" rx="10" fill="#fdf6ec" stroke="#f0a83a"/>
+  <text x="710" y="394" text-anchor="middle" font-size="13" font-weight="700" fill="#7d4e00">成长闭环前端</text>
+  <text x="710" y="413" text-anchor="middle" font-size="11.5" fill="#333a45">驾驶舱话题树实时生长 · 时间预算倒计时 · 战役综合评估（可上战场判断）</text>
+  <text x="710" y="430" text-anchor="middle" font-size="11.5" fill="#57606a">React 19 · router 7 · TanStack Query · framer-motion · SessionRuntime 常驻</text>
+
+  <line x1="350" y1="330" x2="250" y2="368" stroke="#57606a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="610" y1="330" x2="710" y2="368" stroke="#57606a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <text x="480" y="462" text-anchor="middle" font-size="10.5" fill="#9aa4b2">SQLite 本地存储 · 启动自动备份轮转 · 数据不出本机</text>
+</svg>
