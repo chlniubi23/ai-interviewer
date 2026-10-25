@@ -32,3 +32,4 @@ Thumbs.db
 # ===== 素材录制临时产物（不入库）=====
 temp_video/
 frontend/record*.mjs
+backend/data/llm_usage.jsonl

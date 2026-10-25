@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import datetime
 import logging
 import os
 import re
@@ -29,6 +30,27 @@ VISION_MODEL = os.getenv("LLM_VISION_MODEL", "glm-5.3-flash")
 
 _client = OpenAI(api_key=API_KEY, base_url=BASE_URL, timeout=180)
 
+# v2.7-4 token 成本核算：每次调用的 usage 追加落盘（data/ 已 gitignore）
+USAGE_PATH = BASE_DIR / "backend" / "data" / "llm_usage.jsonl"
+
+
+def _log_usage(kind: str, model: str, usage) -> None:
+    if usage is None:
+        return
+    try:
+        USAGE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        rec = {
+            "ts": datetime.datetime.now().isoformat(timespec="seconds"),
+            "kind": kind,
+            "model": model,
+            "prompt_tokens": getattr(usage, "prompt_tokens", 0),
+            "completion_tokens": getattr(usage, "completion_tokens", 0),
+        }
+        with open(USAGE_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception:  # 记录失败不影响主流程
+        logger.debug("usage 记录失败", exc_info=True)
+
 
 def _messages(system: str | None, prompt: str) -> list[dict]:
     msgs = []
@@ -50,6 +72,7 @@ def chat_text(
         messages=_messages(system, prompt),
         temperature=temperature,
     )
+    _log_usage("text", model or MODEL, getattr(resp, "usage", None))
     return (resp.choices[0].message.content or "").strip()
 
 
@@ -60,13 +83,24 @@ def chat_text_stream(
     temperature: float = 0.7,
 ):
     """流式文本输出：逐块 yield 增量文本（v2.3-1 面试官 SSE 打字机/分句即译用）。"""
-    resp = _client.chat.completions.create(
-        model=model or MODEL,
-        messages=_messages(system, prompt),
-        temperature=temperature,
-        stream=True,
-    )
+    try:  # 端点支持时带上 usage（末 chunk 返回）；不支持则降级普通流
+        resp = _client.chat.completions.create(
+            model=model or MODEL,
+            messages=_messages(system, prompt),
+            temperature=temperature,
+            stream=True,
+            stream_options={"include_usage": True},
+        )
+    except Exception:
+        resp = _client.chat.completions.create(
+            model=model or MODEL,
+            messages=_messages(system, prompt),
+            temperature=temperature,
+            stream=True,
+        )
     for chunk in resp:
+        if getattr(chunk, "usage", None):
+            _log_usage("stream", model or MODEL, chunk.usage)
         if chunk.choices:
             delta = chunk.choices[0].delta.content
             if delta:
@@ -90,6 +124,7 @@ def chat_vision(
         messages=[{"role": "user", "content": content}],
         temperature=temperature,
     )
+    _log_usage("vision", model or VISION_MODEL, getattr(resp, "usage", None))
     return (resp.choices[0].message.content or "").strip()
 
 
