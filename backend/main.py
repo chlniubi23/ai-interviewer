@@ -51,8 +51,8 @@ _ensure_columns()
 
 def _backup_db() -> None:
     """v2.6-1 数据安全：启动时用 SQLite backup API 做安全快照（不直接复制正在写的文件），
-    轮转保留最近 7 份。app.db 在 OneDrive 同步目录内，写入撞同步有损坏风险——备份是
-    成本最低的兜底。失败只记日志不阻断启动。长期建议：项目整体移出 OneDrive 同步目录。
+    轮转保留最近 7 份。app.db 若处于云同步盘目录内，写入撞同步有损坏风险——备份是
+    成本最低的兜底。失败只记日志不阻断启动。长期建议：项目整体移出云同步盘目录。
     """
     import sqlite3
     from datetime import datetime
@@ -86,7 +86,7 @@ logger = logging.getLogger(__name__)
 try:
     _backup_db()
 except Exception:
-    logger.exception("数据库备份失败（不阻断启动，建议检查 OneDrive 同步状态）")
+    logger.exception("数据库备份失败（不阻断启动，建议检查云同步盘状态）")
 
 # v2.1-2：调研知识文件同步进 knowledge 表（researched；文件为真相，每次启动刷新）
 with SessionLocal() as db:
