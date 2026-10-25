@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 面试官</title>
+    <script>
+      // 首屏预置主题，防深色闪白（与 theme.ts 的 localStorage key 一致；默认浅色）
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('ai_interviewer_theme') === 'dark' ? 'dark' : 'light'
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+# ===== 密钥与本地环境（绝不进库）=====
+.env
+*.env
+
+# ===== Python =====
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ===== Node / 前端 =====
+node_modules/
+dist/
+test-results/
+playwright-report/
+
+# ===== 运行数据（本地隐私/可重建，绝不进库；knowledge 调研资产除外）=====
+backend/data/app.db
+backend/data/app.db-journal
+backend/data/backups/
+backend/data/tts_cache/
+backend/data/resume_pdfs/
+
+# ===== 大文件媒体（v2.7-3 演示视频只留 GIF）=====
+docs/demo.mp4
+*.log
+
+# ===== 系统 =====
+Thumbs.db
+.DS_Store
